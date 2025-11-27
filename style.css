@@ -1,56 +1,66 @@
 *{
-	font-family: Arial, Helvetica, sans-serif;
-	/* border: 1px solid rgba(255, 255, 255, 0.363); */
-	padding: 2px;
-	margin: 0;
-	color: rgb(255, 0, 255);
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 2px;
+    margin: 0;
+    color: rgb(255, 0, 255);
 }
 
 body{
-	background-color: rgb(0, 0, 0);
+    background-color: rgb(0, 0, 0);
+    overflow: hidden; /* para que el canvas no haga scroll */
 }
 
 main{
-	display: flex;
-	flex-flow: column;
-	align-items: center;
-	justify-content: center;
-	gap: 2rem;
-	min-height: 80vh;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-height: 80vh;
 }
 
 li a{
-	margin-block: 0.5rem;
-	display: inline-block;
-	text-decoration: none;
-	background-color: rgb(29, 44, 43);
-	padding-inline: 1rem;
-	padding-block: 0.7rem;
-	border-radius: 5px;
-	border: solid 1px rgb(255, 0, 255);
-	transition: all .3s ease-in-out;
+    margin-block: 0.5rem;
+    display: inline-block;
+    text-decoration: none;
+    background-color: rgb(29, 44, 43);
+    padding-block: 0.7rem;
+    border-radius: 5px;
+    border: solid 1px rgb(255, 0, 255);
+    transition: all .3s ease-in-out;
+
+    width: 200px;        /* 🔥 mismo tamaño para todos los botones */
+    text-align: center;  /* centra el texto */
 }
 
 li a:hover{
-	background-color: rgb(255, 0, 255);
-	border: solid 1px rgb(255, 255, 255);
-
-	transform: scale(1.1) rotate(2deg);
-
+    background-color: rgb(255, 0, 255);
+    border: solid 1px rgb(255, 255, 255);
+    transform: scale(1.05); /* efecto suave */
 }
 
 ul{
-	list-style-type: none;
+    list-style-type: none;
 }
 
 .titulo h1{
-	font-family: "Bitcount Grid Single", system-ui, sans-serif;
-	font-size: 5rem;
-	color: rgb(255, 0, 255);
+    font-family: "Bitcount Grid Single", system-ui, sans-serif;
+    font-size: 5rem;
+    color: rgb(255, 0, 255);
 }
 
 .titulo p{
-	text-align: center;
-	font-style: italic;
-	font-size: .8rem;
+    text-align: center;
+    font-style: italic;
+    font-size: .8rem;
+}
+
+/* Canvas del efecto */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* para que quede detrás del contenido */
 }
