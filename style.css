@@ -55,12 +55,34 @@ ul{
     font-size: .8rem;
 }
 
-/* Canvas del efecto */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1; /* para que quede detrás del contenido */
+/* 🌊 AGUA NEÓN */
+#water-layer{
+position: relative;
+min-height: 100vh;
+background: radial-gradient(circle, rgba(255,0,255,0.15), black);
+mix-blend-mode: screen;
+}
+
+
+/* 🔥 GLOW NEÓN EXTRA EN BOTONES */
+li a:hover{
+box-shadow:
+0 0 10px rgb(255, 0, 255),
+0 0 25px rgb(255, 0, 255),
+0 0 50px rgb(255, 0, 255);
+}
+
+
+/* 🧸 EL MUÑECO ES EL CURSOR */
+body {
+  cursor: none; /* oculta el cursor real */
+}
+
+#cursor-follower {
+  position: fixed;
+  width: 50px;              /* ajusta al tamaño del muñeco */
+  height: auto;
+  pointer-events: none;     /* no bloquea clicks */
+  z-index: 999999;
+  transform: translate(-50%, -50%); /* centra el muñeco en el mouse */
 }
