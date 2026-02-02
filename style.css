@@ -1,88 +1,180 @@
+/* =========================
+   RESET / BASE
+========================= */
 *{
     font-family: Arial, Helvetica, sans-serif;
     padding: 2px;
     margin: 0;
-    color: rgb(255, 0, 255);
+    box-sizing: border-box;
 }
 
 body{
-    background-color: rgb(0, 0, 0);
-    overflow: hidden; /* para que el canvas no haga scroll */
-}
-
-main{
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    min-height: 80vh;
-}
-
-li a{
-    margin-block: 0.5rem;
-    display: inline-block;
-    text-decoration: none;
-    background-color: rgb(29, 44, 43);
-    padding-block: 0.7rem;
-    border-radius: 5px;
-    border: solid 1px rgb(255, 0, 255);
-    transition: all .3s ease-in-out;
-
-    width: 200px;        /* 🔥 mismo tamaño para todos los botones */
-    text-align: center;  /* centra el texto */
-}
-
-li a:hover{
-    background-color: rgb(255, 0, 255);
-    border: solid 1px rgb(255, 255, 255);
-    transform: scale(1.05); /* efecto suave */
-}
-
-ul{
-    list-style-type: none;
-}
-
-.titulo h1{
-    font-family: "Bitcount Grid Single", system-ui, sans-serif;
-    font-size: 5rem;
+    background-color: black;
+    overflow: hidden;
+    cursor: none;
     color: rgb(255, 0, 255);
 }
 
-.titulo p{
+/* =========================
+   FONDO FLORES (SIEMPRE VISIBLES)
+========================= */
+#water-layer{
+    position: relative;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,0,255,0.18), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(255,100,200,0.18), transparent 40%),
+      linear-gradient(180deg, #050008, #000);
+    overflow: hidden;
+}
+
+/* 🌸 FLORES */
+#water-layer::before,
+#water-layer::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-repeat: repeat;
+}
+
+/* flores pequeñas */
+#water-layer::before{
+    background-image:
+      radial-gradient(circle, #ff66cc 3px, transparent 4px),
+      radial-gradient(circle, #ff99dd 2px, transparent 3px),
+      radial-gradient(circle, #ff33aa 2.5px, transparent 3.5px);
+    background-size: 110px 110px;
+    opacity: .65;
+    animation: floresVivas 25s ease-in-out infinite alternate;
+}
+
+/* flores grandes */
+#water-layer::after{
+    background-image:
+      radial-gradient(circle, #ff88dd 5px, transparent 6px),
+      radial-gradient(circle, #ff44bb 4px, transparent 5px);
+    background-size: 200px 200px;
+    opacity: .45;
+    animation: floresVivas 40s ease-in-out infinite alternate-reverse;
+}
+
+/* 🌸 movimiento suave (NO salen de pantalla) */
+@keyframes floresVivas{
+    0%{
+        transform: translate(0, 0);
+    }
+    50%{
+        transform: translate(-20px, -20px);
+    }
+    100%{
+        transform: translate(20px, 20px);
+    }
+}
+
+/* =========================
+   LAYOUT
+========================= */
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    min-height: 100vh;
     text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================
+   TÍTULO BOMBA 3D
+========================= */
+.titulo h1{
+    font-family: "Bitcount Grid Single", system-ui, sans-serif;
+    font-size: 5.5rem;
+    color: #ff4fd8;
+
+    text-shadow:
+      1px 1px 0 #c8009c,
+      2px 2px 0 #a3007d,
+      3px 3px 0 #7a005e,
+      4px 4px 0 #52003f,
+      0 0 15px #ff4fd8,
+      0 0 35px #ff4fd8,
+      0 0 60px rgba(255,79,216,.8);
+
+    animation: bomba 2.5s infinite ease-in-out;
+}
+
+@keyframes bomba{
+    0%,100%{ transform: scale(1); }
+    50%{ transform: scale(1.06); }
+}
+
+.titulo p{
     font-style: italic;
     font-size: .8rem;
+    opacity: .85;
 }
 
-/* 🌊 AGUA NEÓN */
-#water-layer{
-position: relative;
-min-height: 100vh;
-background: radial-gradient(circle, rgba(255,0,255,0.15), black);
-mix-blend-mode: screen;
+/* =========================
+   BOTONES VIDEOJUEGO
+========================= */
+ul{
+    list-style: none;
+    padding: 0;
 }
 
+li{
+    margin-block: .9rem;
+}
 
-/* 🔥 GLOW NEÓN EXTRA EN BOTONES */
+li a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+
+    width: 240px;
+    padding: .9rem 1rem;
+    text-decoration: none;
+
+    background: #0a2a33;
+    color: #ffd84a;
+    border-radius: 8px;
+
+    box-shadow:
+      0 0 0 2px #00ffd5,
+      0 0 0 5px #6b00ff,
+      0 8px 0 rgba(0,0,0,.5),
+      0 0 20px rgba(0,255,213,.3);
+
+    transition: all .15s ease-in-out;
+}
+
 li a:hover{
-box-shadow:
-0 0 10px rgb(255, 0, 255),
-0 0 25px rgb(255, 0, 255),
-0 0 50px rgb(255, 0, 255);
+    transform: translateY(-3px) scale(1.05);
+    background: rgb(255,0,255);
+    color: white;
+    box-shadow:
+      0 0 10px rgb(255,0,255),
+      0 0 30px rgb(255,0,255),
+      0 0 60px rgb(255,0,255);
 }
 
-
-/* 🧸 EL MUÑECO ES EL CURSOR */
-body {
-  cursor: none; /* oculta el cursor real */
+li a:active{
+    transform: translateY(5px);
 }
 
-#cursor-follower {
-  position: fixed;
-  width: 50px;              /* ajusta al tamaño del muñeco */
-  height: auto;
-  pointer-events: none;     /* no bloquea clicks */
-  z-index: 999999;
-  transform: translate(-50%, -50%); /* centra el muñeco en el mouse */
+/* =========================
+   MUÑECO CURSOR
+========================= */
+#cursor-follower{
+    position: fixed;
+    width: 50px;
+    height: auto;
+    pointer-events: none;
+    z-index: 999999;
+    transform: translate(-50%, -50%);
 }
